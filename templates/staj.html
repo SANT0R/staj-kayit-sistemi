@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="tr-TR">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoşgeldiniz!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+    #menu ul{
+      
+      float: left;
+    }
+
+     #menu li{
+       list-style-type:unset;
+      
+     }
+     
+     #menu a{ 
+       text-decoration: none;
+       color: whitesmoke;
+	   font-weight: 600;
+       display: block;
+       text-align: center;
+       transition: 1s;     
+	   font-family: calibri,arial,verdana;
+	   font-size: 20px;
+	   line-height: 50px;
+	   background-color: #887555;
+	   width: 180px;
+	   border-bottom: 3px solid orange;
+ 
+		   
+	}
+     
+      #menu span{
+       display: block;
+       margin-top:-60px;
+     }
+     
+     #menu a:hover{
+      
+		background-color: #5F3B06; 
+       	color: #887555;       
+       
+     }     
+      
+    body{
+      margin-top: 90px;
+    }
+  
+    #menu1 li{
+      
+      list-style-type: none;
+      
+      
+      
+    }
+    
+    #menu1 a{
+        
+      text-decoration: none;
+      color: whitesmoke;
+      font-weight: 600;
+      display: block;
+      text-align: center;
+      transition: 1s;     
+      font-family: calibri,arial,verdana;
+      font-size: 20px;
+      line-height: 50px;
+      background-color: #005555;
+      width: 180px;
+      margin-right: 1px; 
+      float: left;
+          
+   }
+    
+     #menu1 span{
+      display: block;
+      margin-top:-60px;
+    }
+    
+    #menu1 a:hover{
+     
+       background-color: #5FD367; 
+          color: #005555;       
+      
+    }
+
+    form {
+      padding-left:  250px;
+      border-top-style:ridge;
+      border-bottom-style:ridge;
+
+    }     
+     </style>
+</head>
+
+<body>
+    <div id="menu1">
+<center>
+<h2>Hoşgeldin : {{ request.user.get_full_name }}</h2>
+<hr>
+<b>Son Giriş Tarihiz : </b> {{ request.user.last_login }}
+<hr>
+
+        
+    </div>
+
+    <hr>
+    <div id="menu" >
+            <ul>
+                <li><a href="/">ANASAYFA</a></li>
+                <li><a href="/">Staj </a></li>
+                <li><a href="/bilgi">Kişisel bilgiler</a></li>
+                <li><a href="/cikis/"><font color="red">Güvenli Çıkış!  </font></a></li>
+            </ul>
+    </div>
+
+    <div class="container"  >
+      <h3>Staj Ekle</h3>
+    </div>
+    <hr>
+
+    <form id="menu1" action="/stajekle/" method="GET">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationServer01">Stajın yapıldığı şehir</label>
+          <input type="text" class="form-control is-invalid"  name="sehir" id="validationServer01" placeholder="Şehir" value="Trabzon" required>
+          <div class="invalid-feedback">
+              Zorunlu alan.
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="validationServer02">Stajın yapıldığı kurum/kuruluş</label>
+          <input type="text" class="form-control is-invalid" name="company" id="validationServer02" placeholder="Kurum/Kuruşuş" value="Goggle" required>
+          <div class="invalid-feedback">
+              Zorunlu alan.
+          </div>
+        </div>
+      <div class="form-row">
+        <div class="col-md-2 mb-3">
+          <label for="validationServerUsername">Başlama tarihi</label>
+          <div class="input-group">
+            <input type="date" class="form-control is-invalid" name="baslangic" id="validationServerUsername" placeholder="Başlangıç" aria-describedby="inputGroupPrepend3" required>
+            <div class="invalid-feedback">
+              Zorunlu alan.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 mb-3">
+          <label for="validationServer03">Bitiş tarihi</label>
+          <input type="date" class="form-control is-invalid" name="bitis" id="validationServer03" placeholder="Bitiş" required>
+          <div class="invalid-feedback">
+            Zorunlu alan.
+          </div>
+        </div>
+        <div class="col-md-2 mb-3">
+          <label for="validationServer04">Yapılan gün sayısı</label>
+          <input type="text" class="form-control is-invalid" name="gun" id="validationServer04" placeholder="Gün" required>
+          <div class="invalid-feedback">
+              Zorunlu alan.
+          </div>
+        </div>
+        <div class="col-md-5 mb-5">
+          <label >Ek dosyalar</label>
+          <input type="file" class="form-control is-valid" name="dosya" id="validationServer05" placeholder="Zip"  >
+        </div>
+        <div class="col-md-5 mb-3">
+        <button class="btn btn-primary" type="submit">Kaydet</button>
+        </div>
+      </div>
+    </form>
+    
+    <hr>
+
+    {% if internships %}
+
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Şehir</th>
+              <th scope="col">Kurum/Kuruluş</th>
+              <th scope="col">Başlangıç</th>
+              <th scope="col">Bitiş</th>
+              <th scope="col">Geçerli gün</th>
+              <th scope="col">Ek dosyalar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for internship in internships %}
+            <tr>
+                <th scope="row">{{internship.city}}</th>
+                <td>{{internship.company}}</td>
+                <td>{{internship.strtdate}}</td>
+                <td>{{internship.fnshdate}}</td>
+            {% if  internship.day < 15  or  internship.student.class == "2.sınıf"  and  internship.day > 25  %}  
+                <th ><font color="red">{{internship.day}}</font></td>
+            {% else %}
+                <td >{{internship.day}}</td>
+            {% endif %}
+                <td>{{internship.files}}</td>
+                <td><a href="delete/{{internship.id}}" class="btn btn-danger">Sil</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      
+      {% else %}
+        <div class="alert alert-danger">Kayıtlı staj bilginiz yok</div>
+      {% endif %}
+
+
+</center>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
